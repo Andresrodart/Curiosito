@@ -1,0 +1,35 @@
+extends layout
+
+block content
+	progress(id='sending_file' class="progress is-danger start-hidden" max="100") 15%
+	section(class="hero is-fullheight" id='welcome')
+		.hero-body
+			.container#ingresar
+				.columns.is-vcentered
+					.column.has-text-centered
+						h1.title
+							|Bienvenido
+						h1.subtitle
+							|Estas por entrar a curiosito pero primero cuentanos 
+							br
+							|¿Con cuál genero te identificas?
+				.columns
+					.column.is-one-quarter
+					.column 
+						input.input.is-rounded(type="text" placeholder="mujer, hombre, otro" id='usrGndr')
+					.column.is-1 
+						button(class="button main-color" onclick='initSession()') Ok
+					.column.is-one-quarter
+	section(class="start-hidden full-h" id='chat-area')
+		.columns
+			.column
+				.vh80.radiousBoxR
+					.messagess-wrapper#messagess-wrapper
+						.mensagess-area#messagess-area
+					.writeArea
+						.columns
+							.column.is-1
+							.column.is-10
+								input(class="input is-rounded" type="text" placeholder='write your message' id='usrMessage')
+							.column
+								button(class="button main-color" onclick='sendMessage()') Send
