@@ -1,8 +1,6 @@
 extends layout
 
 block head
-	script(src="https://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8")
-	script(src="https://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8")
 
 block content
 	progress(id='sending_file' class="progress is-danger start-hidden" max="100") 15%
@@ -37,3 +35,6 @@ block content
 								input(class="input is-rounded" type="text" placeholder='write your message' id='usrMessage')
 							.column
 								button(class="button main-color" onclick='sendMessage()') Send
+	section.map.start-hidden#map-wrapper
+		.map-wrapper
+			div(id="map" style="width: 100%; height: 400px; background: grey")

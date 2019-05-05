@@ -5,6 +5,14 @@ html
 		title= title
 		link(rel='stylesheet', href='/stylesheets/bulma.min.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1549984893")
+		meta(name="viewport" content="initial-scale=1.0, width=device-width")
+		script(type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js")
+		script(type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js")
+		script(type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js")
+		script(type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js")
+		script(type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-places.js")
+	
 	body
 		nav.navbar.main-color
 			.container
@@ -12,10 +20,10 @@ html
 					.column.is-paddingless.is-one-fifth.has-text-centered.has-text-weight-semibold
 						a(href='/abautCuriosito')
 							.selector 
-								| ¿Quién es 'Curiosito'?
+								p ¿Quién es 'Curiosito'?
 					.column.is-paddingless.is-one-fifth.is-pulled-right.has-text-centered.has-text-weight-semibold
 						a(href='/')
 							.selector
-								| Ir a 'Curiosito'
+								p Ir a 'Curiosito'
 		block content
 		script(src='/javascripts/functions.js')

@@ -3,10 +3,6 @@
 	--sec-color: #eee79c;
 }
 
-html {
-	overflow:hidden;
-}
-
 /* width */
 ::-webkit-scrollbar {
 	width: 7px;
@@ -51,7 +47,7 @@ section.full-h {
 		padding: 5% 3%;
  	margin: 0;
 		max-width: none;
-		height: 100vh;
+		height: 90vh;
 }
 .error{
 	background-color: crimson;
@@ -151,4 +147,8 @@ a { color: inherit; }
 
 .reverse{
 	flex-flow:	row-reverse !important;
+}
+
+.map-wrapper{
+	padding: 0rem 5rem 5rem 5rem;
 }

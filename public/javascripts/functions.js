@@ -1,6 +1,13 @@
 var userGender
 var url = '/';
-var usrNAme = 'Exploradxr'
+var usrNAme = 'Exploradxr';
+var map;
+var cords;
+var search;
+var ui;
+var my_lon;
+var my_lat;
+
 function initSession() {
     usrNAme = document.getElementById('usrGndr').value;
     document.getElementById('sending_file').style.display = 'block';
@@ -41,6 +48,24 @@ function sendMessage(){
     .then(response => {
         console.log('Success:', response)
         if(response.Response){
+            let message; 
+            tokens_text =  response.Response.output.generic[0].text.split('_')
+            if (tokens_text[0] === 'location') {
+                cleanMap();
+                document.getElementById('map-wrapper').style.display = 'block';
+                if (response.Response.output.entities[0].entity === 'metodo_anticonceptivo') {
+                        let com = ['farmacia', 'drugstore', 'similares', 'Farmacias del Ahorro', 'Samborns']
+                        let uncom = ['IMSS', 'Clinica IMSS', 'Seguro social', 'ISSSTE']
+                        if (okens_text[1] === 'comun')
+                            for (let index = 0; index < com.length; index++)
+                                putInMap(com[index]);
+                        else
+                            for (let index = 0; index < uncom.length; index++)
+                                putInMap(uncom[index]);
+                }
+            }else{
+
+            }
             messageCreator({
                 user: 'Curiosito',
                 mesg: response.Response.output.generic[0].text
@@ -151,24 +176,97 @@ function messageCreator(message) {
 }
 
 var platform = new H.service.Platform({
-    "app_id": " zO5CTVSrwGEodjkhrTof",
-    "app_code": " Hg8-y4kk02tg8teEYcaaqQ"
+    app_id: "zO5CTVSrwGEodjkhrTof",
+    app_code: "Hg8-y4kk02tg8teEYcaaqQ",
+    useHTTPS: true
 });
-var geocoder = platform.getGeocodingService();
-if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-        geocoder.reverseGeocode(
-            {
-                mode: "retrieveAddresses",
-                maxresults: 1,
-                prox: position.coords.latitude + "," + position.coords.longitude
-            }, data => {
-                alert("The nearest address to your location is:\n" + data.Response.View[0].Result[0].Location.Address.Label);
-            }, error => {
-                console.error(error);
-            }
-        );
+// Create a group object to hold map markers:
+var group = new H.map.Group();
+navigator.geolocation.getCurrentPosition(position => {
+    // Define search parameters:
+    console.log(position.coords);
+    // Instantiate a map inside the DOM element with id map. The
+    // map center is in San Francisco, the zoom level is 10:
+    map = new H.Map(document.getElementById('map'),
+    platform.createDefaultLayers().normal.map, {
+        center: {lat: position.coords.latitude, lng: position.coords.longitude},
+        zoom: 15
     });
-} else {
-    console.error("Geolocation is not supported by this browser!");
+
+    // Create the default UI components:
+    ui = H.ui.UI.createDefault(map, platform.createDefaultLayers());
+
+    // Add the group object to the map:
+    map.addObject(group);
+
+    // Obtain a Search object through which to submit search
+    // requests:
+    search = new H.places.Search(platform.getPlacesService()), error;
+    cords = `${position.coords.latitude},${position.coords.longitude}`;
+    my_lat = position.coords.latitude;
+    my_lon = position.coords.longitude;
+});
+
+function putInMap(query) {
+    var params = {
+        // Plain text search for places with the word "hotel"
+        // associated with them:
+        'q': query,
+        //  Search in the Chinatown district in San Francisco:
+        'at': cords
+    };
+    search.request(params, {}, onResult, onError);
 }
+
+function cleanMap() {
+    map = new H.Map(document.getElementById('map'),
+    platform.createDefaultLayers().normal.map, {
+        center: {lat: my_lat, lng: my_lon},
+        zoom: 15
+    });
+
+    // Create the default UI components:
+    ui = H.ui.UI.createDefault(map, platform.createDefaultLayers());
+
+    // Add the group object to the map:
+    map.addObject(group);
+}
+// This function adds markers to the map, indicating each of
+// the located places:
+function addPlacesToMap(result) {
+        group.addObjects(result.items.map(function (place) {
+            var marker = new H.map.Marker({lat: place.position[0],
+                lng: place.position[1]})
+            return marker;
+        }));
+}
+
+// Define a callback function to handle data on success:
+function onResult(data) {
+    addPlacesToMap(data.results);
+}
+
+// Define a callback function to handle errors:
+function onError(data) {
+    error = data;
+    console.log(error);
+}
+
+//var geocoder = platform.getGeocodingService();
+// if(navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(position => {
+//         geocoder.reverseGeocode(
+//             {
+//                 mode: "retrieveAddresses",
+//                 maxresults: 1,
+//                 prox: position.coords.latitude + "," + position.coords.longitude
+//             }, data => {
+//                 alert("The nearest address to your location is:\n" + data.Response.View[0].Result[0].Location.Address.Label);
+//             }, error => {
+//                 console.error(error);
+//             }
+//         );
+//     });
+// } else {
+//     console.error("Geolocation is not supported by this browser!");
+// }
