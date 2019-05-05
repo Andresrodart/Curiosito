@@ -163,51 +163,38 @@ function messageCreator(message) {
 	let nodeMesName = document.createElement("div");
 	let nodeMesText = document.createElement("div");
 	let file_imege_wraper = document.createElement("div");
-	let node_image = document.createElement("i");
-	let node_p = document.createElement("p");
-	let file = document.createElement('a');
+	let curiosito = document.createElement('img');
 	let name;
     let mesg;
     let web_img = null;
 	let fromoWhom =  'messagess-area';
 	nodeMes.classList.add("message");                					// Create a <div> node
 	nodeMesName.classList.add("name");
-	nodeMesText.classList.add("text");
-	if (message == null){ 
-		name = document.createTextNode(usrNAme);
-		mesg = document.createTextNode(document.getElementById('usrMessage').value);
+    nodeMesText.classList.add("text");
+    file_imege_wraper.classList.add("curiosito_mess")
+    curiosito.src = '../images/curiosito.png';
+    curiosito.style.display = 'inline';
+    if (message == null){ 
+        name = document.createTextNode(usrNAme);
+        mesg = document.createElement('p')
+        mesg.classList.add('self-msg');
+		mesg.innerHTML = document.getElementById('usrMessage').value;
 		nodeMes.classList.add("self");
 		nodeMesText.appendChild(mesg);
 	}else{
 		//if(message.to != ('messagess-area-' + usrNAme) && message.to != 'messagess-area') return;
 		name = document.createTextNode(message.user);
-		mesg = document.createTextNode(message.mesg);
+        mesg = document.createElement('p')
+        mesg.innerHTML = message.mesg;
+        file_imege_wraper.appendChild(curiosito);
+        file_imege_wraper.appendChild(mesg);
 		if (message.img) {
             web_img = document.createElement("img");
             web_img.src = message.img;
             web_img.classList.add("chat-img");
         }
-		if(message.file == null)
-			nodeMesText.appendChild(mesg);
-		else{
-			let path_ = ''
-			node_image.classList.add('fas', 'fa-file');
-			node_image.style.display = 'inline';
-			node_p.innerHTML = message.mesg;
-			file_imege_wraper.appendChild(node_image);
-			file_imege_wraper.appendChild(node_p);
-			file.appendChild(file_imege_wraper);
-			file.addEventListener('click', function(e) {
-				if (e.path[2].text != null)
-					path_ = e.path[2].text;
-				else if(e.path[1].text != null)
-					path_ = e.path[1].text;
-				else
-					path_ = e.path[3].text;
-				downloadFile(path_);
-			});
-			nodeMesText.appendChild(file);
-		}
+        nodeMesText.appendChild(file_imege_wraper);
+        gotoBottom('messagess-area');
 	}
 	
 	
@@ -310,6 +297,11 @@ input_2.onkeypress = function(e){
     if (keyCode == '13'){
       document.getElementById('snd_ms').click();
     }
+}
+
+function gotoBottom(id){
+    var element = document.getElementById(id);
+    element.scrollTop = element.scrollHeight - element.clientHeight;
 }
 
 //var geocoder = platform.getGeocodingService();

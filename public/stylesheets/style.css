@@ -73,7 +73,7 @@ a { color: inherit; }
 .selector{
 	height: auto;
 	width: auto;
-	padding: 4vh 1rem 1rem 5vh;
+	padding: 4vh 1rem 1rem 4vh;
 	border-left: 1.5px solid black;
 }
 
@@ -197,4 +197,21 @@ a { color: inherit; }
 .logo img{
 	max-height: 100px;
 	padding: 1rem 1rem 1rem 1rem;
+}
+.curiosito_mess{
+	margin-bottom: 4em
+}
+.curiosito_mess img{
+	height: 60px;
+	width: auto;
+	margin: 0em 0em -4.39em 0em;
+}
+
+.curiosito_mess p{
+	height: auto;
+	width: auto;
+	padding: 0em 10rem 0 5.5rem
+}
+.self-msg{
+	margin: .5em 0 1em 0;
 }
