@@ -115,7 +115,7 @@ function showChatArea() {
     document.getElementById('chat-area').style.opacity = 0.1;
     messageCreator({
         user: 'Curiosito',
-        mesg: 'Hola, yo soy \'curiosito\' y estoy aquí para resolver todas las dudas que puedas tener sobre tu sexulidad. Recuerda, aquí puedes tener toda la confianza del mundo, nada de lo que digas será guardado por ningún motivo :D'
+        mesg: 'Hola, yo soy Curiosito y estoy aquí para resolver todas las dudas que puedas tener sobre tu sexulidad. Recuerda, aquí puedes tener toda la confianza del mundo, nada de lo que digas será guardado por ningún motivo :D'
     });
     fade(document.getElementById('welcome'), document.getElementById('chat-area'));
     // document.getElementById('main-chat').addEventListener('click', function(e) {
