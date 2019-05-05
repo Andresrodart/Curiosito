@@ -1,9 +1,21 @@
 doctype html
 html
 	head
+		block head
 		title= title
 		link(rel='stylesheet', href='/stylesheets/bulma.min.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 	body
+		nav.navbar.main-color
+			.container
+				.columns.is-vcentered.is-mobile.reverse
+					.column.is-paddingless.is-one-fifth.has-text-centered.has-text-weight-semibold
+						a(href='/abautCuriosito')
+							.selector 
+								| ¿Quién es 'Curiosito'?
+					.column.is-paddingless.is-one-fifth.is-pulled-right.has-text-centered.has-text-weight-semibold
+						a(href='/')
+							.selector
+								| Ir a 'Curiosito'
 		block content
 		script(src='/javascripts/functions.js')

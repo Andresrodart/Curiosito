@@ -71,24 +71,26 @@ section.full-h {
 		flex-flow: column;
 	overflow-y: auto;
 }
-.radiousBoxL a { color: inherit; } 
-.radiousBoxL .chat-selector{
+
+a { color: inherit; } 
+
+.selector{
 	height: 12vh;
 	min-height: 40px;
 	max-height: 50px;
-	border-bottom: 1px solid ;
-	padding: .4rem .4rem;
+	padding: 1rem;
+	border-left: 1px solid black;
 }
 
-.radiousBoxL .chat-selector:hover{
+.selector:hover{
 	background-color: rgba(0, 0, 0, 0.4)
 }
 
-.radiousBoxL .chat-selector.selected{
+.selector.selected{
 	background-color: rgba(0, 0, 0, 0.2)
 }
 
-.radiousBoxL .chat-selector img {
+.selector img {
 	float: left;
 	min-height: 30px;
 	max-height: 40px;
@@ -98,7 +100,7 @@ section.full-h {
 		border-radius: 50%;
 }
 
-.radiousBoxL .chat-selector p {
+.selector p {
 	font-size: .9rem;
 	font-weight: bold;
 }
@@ -147,3 +149,6 @@ section.full-h {
 	padding: 0 !important;
 }
 
+.reverse{
+	flex-flow:	row-reverse !important;
+}

@@ -1,5 +1,9 @@
 extends layout
 
+block head
+	script(src="https://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8")
+	script(src="https://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8")
+
 block content
 	progress(id='sending_file' class="progress is-danger start-hidden" max="100") 15%
 	section(class="hero is-fullheight" id='welcome')
@@ -12,7 +16,7 @@ block content
 						h1.subtitle
 							|Estas por entrar a curiosito pero primero cuentanos 
 							br
-							|¿Con cuál genero te identificas?
+							|¿Cuál es tu nombre o apodo?
 				.columns
 					.column.is-one-quarter
 					.column 

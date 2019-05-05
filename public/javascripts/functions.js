@@ -2,6 +2,7 @@ var userGender
 var url = '/';
 var usrNAme = 'Exploradxr'
 function initSession() {
+    usrNAme = document.getElementById('usrGndr').value;
     document.getElementById('sending_file').style.display = 'block';
     userGender = document.getElementById('usrGndr').value;
     var data = {
@@ -149,3 +150,25 @@ function messageCreator(message) {
 	document.getElementById(fromoWhom).appendChild(nodeMes); 
 }
 
+var platform = new H.service.Platform({
+    "app_id": " zO5CTVSrwGEodjkhrTof",
+    "app_code": " Hg8-y4kk02tg8teEYcaaqQ"
+});
+var geocoder = platform.getGeocodingService();
+if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+        geocoder.reverseGeocode(
+            {
+                mode: "retrieveAddresses",
+                maxresults: 1,
+                prox: position.coords.latitude + "," + position.coords.longitude
+            }, data => {
+                alert("The nearest address to your location is:\n" + data.Response.View[0].Result[0].Location.Address.Label);
+            }, error => {
+                console.error(error);
+            }
+        );
+    });
+} else {
+    console.error("Geolocation is not supported by this browser!");
+}

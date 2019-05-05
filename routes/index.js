@@ -9,7 +9,11 @@ const assistant = new AssistantV2({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Express' });
+	res.render('index', { title: 'Curiosito' });
+});
+
+router.get('/abautCuriosito', function(req, res, next) {
+	res.render('abautCuriosito', { title: 'Curiosito' });
 });
 
 router.post('/', function(req, res, next) {
