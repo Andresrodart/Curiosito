@@ -194,7 +194,6 @@ function messageCreator(message) {
             web_img.classList.add("chat-img");
         }
         nodeMesText.appendChild(file_imege_wraper);
-        gotoBottom('messagess-area');
 	}
 	
 	
@@ -203,7 +202,8 @@ function messageCreator(message) {
     nodeMes.appendChild(nodeMesText);
     if (web_img)
         nodeMes.appendChild(web_img);
-	document.getElementById(fromoWhom).appendChild(nodeMes); 
+    document.getElementById(fromoWhom).appendChild(nodeMes);
+    gotoBottom('messagess-wrapper');
 }
 
 var platform = new H.service.Platform({
