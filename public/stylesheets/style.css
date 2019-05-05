@@ -71,11 +71,10 @@ section.full-h {
 a { color: inherit; } 
 
 .selector{
-	height: 12vh;
-	min-height: 40px;
-	max-height: 50px;
-	padding: 1rem;
-	border-left: 1px solid black;
+	height: auto;
+	width: auto;
+	padding: 4vh 1rem 1rem 5vh;
+	border-left: 1.5px solid black;
 }
 
 .selector:hover{
@@ -93,11 +92,12 @@ a { color: inherit; }
 	height: 100%;
 	width: 20%;  
 	margin-right: .5rem;
-		border-radius: 50%;
+	border-radius: 50%;
 }
 
 .selector p {
-	font-size: .9rem;
+	font-size: .8rem;
+	max-width: 20vh;
 	font-weight: bold;
 }
 

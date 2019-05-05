@@ -12,6 +12,7 @@ var group;
 function initSession() {
     usrNAme = document.getElementById('usrGndr').value;
     document.getElementById('sending_file').style.display = 'block';
+    document.getElementById('btn_Ok').disabled = true;
     userGender = document.getElementById('usrGndr').value;
     var data = {
         type: 'initSession',
@@ -53,16 +54,17 @@ function sendMessage(){
             tokens_text =  response.Response.output.generic[0].text.split('_')
             if (tokens_text[0] === 'location') {
                 document.getElementById('map-wrapper').style.display = 'block';
-                //cleanMap();
                 if (response.Response.output.entities[0].entity === 'metodo_anticonceptivo') {
-                        let com = ['farmacia', 'drugstore', 'similares', 'Farmacias del Ahorro', 'Samborns']
-                        let uncom = ['IMSS', 'Clinica IMSS', 'Seguro social', 'ISSSTE']
-                        if (tokens_text[1] === 'comun')
-                            for (let index = 0; index < com.length; index++)
-                                putInMap(com[index]);
-                        else
-                            for (let index = 0; index < uncom.length; index++)
-                                putInMap(uncom[index]);
+                        cleanMap(() => {
+                            let com = ['farmacia', 'drugstore', 'similares', 'Farmacias del Ahorro', 'Samborns']
+                            let uncom = ['IMSS', 'Clinica IMSS', 'Seguro social', 'ISSSTE']
+                            if (tokens_text[1] === 'comun')
+                                for (let index = 0; index < com.length; index++)
+                                    putInMap(com[index]);
+                            else
+                                for (let index = 0; index < uncom.length; index++)
+                                    putInMap(uncom[index]);
+                        });
                 }
                 message = {
                     user: 'Curiosito',
@@ -208,7 +210,8 @@ navigator.geolocation.getCurrentPosition(position => {
 
     // Obtain a Search object through which to submit search
     // requests:
-    search = new H.places.Search(platform.getPlacesService()), error;
+    search = new H.places.Search(platform.getPlacesService());
+    //putInMap('hotel');
 });
 
 function putInMap(query) {
@@ -222,12 +225,17 @@ function putInMap(query) {
     search.request(params, {}, onResult, onError);
 }
 
-function cleanMap() {
-    map = new H.Map(document.getElementById('map'),
-    platform.createDefaultLayers().normal.map, {
-        center: {lat: my_lat, lng: my_lon},
-        zoom: 15
+function cleanMap(cb) {
+    map.getObjects().forEach(element => {
+        try {
+            map.removeObject(element);
+        } catch (error) {
+            
+        }
     });
+    group = new H.map.Group();
+    map.addObject(group);
+    cb();
 }
 // This function adds markers to the map, indicating each of
 // the located places:
@@ -241,8 +249,9 @@ function addPlacesToMap(result) {
 
 // Define a callback function to handle data on success:
 function onResult(data) {
-    document.getElementById('info_map').innerHTML = data;
+    //document.getElementById('info_map').innerHTML = (data)? data:'none';
     addPlacesToMap(data.results);
+    console.log(data, '---------', data.results);
 }
 
 // Define a callback function to handle errors:
