@@ -1,3 +1,5 @@
+const input = document.getElementById('usrGndr');
+const input_2 = document.getElementById('usrMessage');
 var userGender
 var url = '/';
 var usrNAme = 'Exploradxr';
@@ -71,7 +73,7 @@ function sendMessage(){
                     mesg: 'Veo que necesitas ayuda, en el mapa de abajo te indico algunos lugares donde puedes encontrar lo que buscas'
                 }
             }else if(response.Response.output.intents.length > 0){
-                if (response.Response.output.intents[0].intent === 'get' && response.Response.output.entities[0].value === 'aborto') {
+                if ((response.Response.output.intents[0].intent === 'get' && response.Response.output.entities[0].value === 'aborto') || response.Response.output.intents[0].intent === 'afirmacion') {
                     cleanMap(() => {
                         let com = ['Clínica de la Mujer', 'Marie Stopes México Lindavista', 'Famycenter', 'Clinicas de aborto', 'Interrupcion legal del embarazo', 'Medica Center Fem','clinicas aborto', 'aborto', 'abortos', 'abortion', 'interrupción del embarazo']
                         for (let index = 0; index < com.length; index++)
@@ -293,6 +295,21 @@ function onResult(data) {
 function onError(data) {
     error = data;
     console.log(error);
+}
+
+input.onkeypress = function(e){
+    if (!e) e = window.event;
+        var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+      document.getElementById('btn_Ok').click();
+    }
+}
+input_2.onkeypress = function(e){
+    if (!e) e = window.event;
+        var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+      document.getElementById('snd_ms').click();
+    }
 }
 
 //var geocoder = platform.getGeocodingService();

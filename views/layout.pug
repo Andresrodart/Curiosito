@@ -14,16 +14,21 @@ html
 		script(type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-places.js")
 	
 	body
-		.container.main-color.is-fullhd
-			.columns.is-paddingless.is-mobile.is-vcentered
-				.column
-				.column.is-paddingless.is-one-fifth
-					a(href='/abautCuriosito')
-						.selector
-							p ¿Quién es Curiosito?
-				.column.is-paddingless.is-one-fifth
-					a(href='/')
-						.selector
-							p Ir a Curiosito
+		section
+			.container.main-color
+				.columns.is-paddingless.is-mobile.is-vcentered
+					.column
+						.columns
+							.column
+								.logo
+									img(src="../images/Logo.svg", alt="Logo")
+					.column.is-paddingless.is-one-fifth
+						a(href='/abautCuriosito')
+							.selector
+								p ¿Quién es Curiosito?
+					.column.is-paddingless.is-one-fifth
+						a(href='/')
+							.selector
+								p Ir a Curiosito
 		block content
 		script(src='/javascripts/functions.js')

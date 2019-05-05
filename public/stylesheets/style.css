@@ -157,3 +157,44 @@ a { color: inherit; }
 	height: 400px;
 	width: auto;
 }
+
+.shape--curiosito{
+	background: url(../images/curiosito.png) no-repeat;
+	float: left;
+	height: 13em;
+	margin: 0em .2em .5em -3em;
+	width: 15em;
+	shape-outside: url(../images/curiosito.png);
+	shape-margin: .4em;
+}
+.shape--curiosito-2{
+	background: url(../images/curiositosad.png) no-repeat;
+	float: right;
+	height: 13em;
+	width: 15em;
+	shape-outside: url(../images/curiositosad.png);
+	shape-margin: .6em;
+}
+
+.shape--curiosito-3{
+	background: url(../images/curiositoomg.png) no-repeat;
+	float: left;
+	height: 13em;
+	margin: 0em .2em .5em -3em;
+	width: 15em;
+	shape-outside: url(../images/curiositoomg.png);
+	shape-margin: .4em;
+}
+
+.how_is_curiosito{
+	padding: 4rem;
+}
+
+.logo{
+	height: 100%;
+}
+
+.logo img{
+	max-height: 100px;
+	padding: 1rem 1rem 1rem 1rem;
+}
