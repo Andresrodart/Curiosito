@@ -152,3 +152,8 @@ a { color: inherit; }
 .map-wrapper{
 	padding: 0rem 5rem 5rem 5rem;
 }
+
+.chat-img{
+	height: 400px;
+	width: auto;
+}

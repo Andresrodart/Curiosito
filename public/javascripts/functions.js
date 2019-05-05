@@ -55,27 +55,55 @@ function sendMessage(){
             if (tokens_text[0] === 'location') {
                 document.getElementById('map-wrapper').style.display = 'block';
                 if (response.Response.output.entities[0].entity === 'metodo_anticonceptivo') {
-                        cleanMap(() => {
-                            let com = ['farmacia', 'drugstore', 'similares', 'Farmacias del Ahorro', 'Samborns']
-                            let uncom = ['IMSS', 'Clinica IMSS', 'Seguro social', 'ISSSTE']
-                            if (tokens_text[1] === 'comun')
-                                for (let index = 0; index < com.length; index++)
-                                    putInMap(com[index]);
-                            else
-                                for (let index = 0; index < uncom.length; index++)
-                                    putInMap(uncom[index]);
-                        });
+                    cleanMap(() => {
+                        let com = ['farmacia', 'drugstore', 'similares', 'Farmacias del Ahorro', 'Samborns']
+                        let uncom = ['IMSS', 'Clinica IMSS', 'Seguro social', 'ISSSTE']
+                        if (tokens_text[1] === 'comun')
+                            for (let index = 0; index < com.length; index++)
+                                putInMap(com[index]);
+                        else
+                            for (let index = 0; index < uncom.length; index++)
+                                putInMap(uncom[index]);
+                    });
                 }
                 message = {
                     user: 'Curiosito',
                     mesg: 'Veo que necesitas ayuda, en el mapa de abajo te indico algunos lugares donde puedes encontrar lo que buscas'
                 }
+            }else if(response.Response.output.intents.length > 0){
+                if (response.Response.output.intents[0].intent === 'get' && response.Response.output.entities[0].value === 'aborto') {
+                    cleanMap(() => {
+                        let com = ['Clínica de la Mujer', 'Marie Stopes México Lindavista', 'Famycenter', 'Clinicas de aborto', 'Interrupcion legal del embarazo', 'Medica Center Fem','clinicas aborto', 'aborto', 'abortos', 'abortion', 'interrupción del embarazo']
+                        for (let index = 0; index < com.length; index++)
+                            putInMap(com[index]);
+                    });
+                    message = {
+                        user: 'Curiosito',
+                        mesg: response.Response.output.generic[0].text + ' (Revisa el mapa de abajo)'
+                    }
+                }else{
+                    let img = null;
+                    if (response.Response.output.entities.length > 0)
+                        if(response.Response.output.entities[0].value === 'condón')
+                            img = 'https://playsafe.health.nsw.gov.au/wp-content/uploads/2018/03/how-to-use-condoms-6.gif';
+                        else if(response.Response.output.entities[0].value === 'aborto')
+                            img = 'https://necocheadigital.com/wp-content/uploads/2018/02/Aborto1.jpg';
+                    message = {
+                        user: 'Curiosito',
+                        mesg: response.Response.output.generic[0].text,
+                        img: img
+                    }
+                }
             }else{
                 message = {
                     user: 'Curiosito',
-                    mesg: response.Response.output.generic[0].text
+                    mesg: response.Response.output.generic[0].text,
+                    img: null
                 }
+                console.log(response.Response, message)
             }
+
+
             messageCreator(message);
         }
     });
@@ -137,7 +165,8 @@ function messageCreator(message) {
 	let node_p = document.createElement("p");
 	let file = document.createElement('a');
 	let name;
-	let mesg;
+    let mesg;
+    let web_img = null;
 	let fromoWhom =  'messagess-area';
 	nodeMes.classList.add("message");                					// Create a <div> node
 	nodeMesName.classList.add("name");
@@ -151,7 +180,11 @@ function messageCreator(message) {
 		//if(message.to != ('messagess-area-' + usrNAme) && message.to != 'messagess-area') return;
 		name = document.createTextNode(message.user);
 		mesg = document.createTextNode(message.mesg);
-		
+		if (message.img) {
+            web_img = document.createElement("img");
+            web_img.src = message.img;
+            web_img.classList.add("chat-img");
+        }
 		if(message.file == null)
 			nodeMesText.appendChild(mesg);
 		else{
@@ -178,7 +211,9 @@ function messageCreator(message) {
 	
 	nodeMesName.appendChild(name);
 	nodeMes.appendChild(nodeMesName);
-	nodeMes.appendChild(nodeMesText);
+    nodeMes.appendChild(nodeMesText);
+    if (web_img)
+        nodeMes.appendChild(web_img);
 	document.getElementById(fromoWhom).appendChild(nodeMes); 
 }
 
@@ -199,7 +234,7 @@ navigator.geolocation.getCurrentPosition(position => {
     map = new H.Map(document.getElementById('map'),
         platform.createDefaultLayers().normal.map, {
             center: {lat: position.coords.latitude, lng: position.coords.longitude},
-            zoom: 15
+            zoom: 12
     });
     group = new H.map.Group();
     // Create the default UI components:
