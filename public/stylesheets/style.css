@@ -219,12 +219,17 @@ a { color: inherit; }
 	.selector{
 		height: auto;
 		width: auto;
-		padding: 1vh 1rem 1rem 2vh !important;
+		padding: 1vh .5rem 1rem .5vh !important;
 		border-left: 1.5px solid black;
 	}
 	.selector p {
-		font-size: .9rem !important;
+		font-size: .65rem !important;
 		max-width: 20vh;
 		font-weight: bold;
+	}
+	.logo img{
+		max-height: 100px;
+		max-width: 120px;
+		padding: 1rem 0rem 0rem 1rem;
 	}
 }
